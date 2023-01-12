@@ -1,5 +1,7 @@
 package org.afrivera.springcloud.msvc.users.controller;
 
+import org.afrivera.springcloud.msvc.users.dto.RequestUserDto;
+import org.afrivera.springcloud.msvc.users.dto.ResponseUserDto;
 import org.afrivera.springcloud.msvc.users.model.entity.UserEntity;
 import org.afrivera.springcloud.msvc.users.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -18,30 +20,25 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> findAll(){
+    public ResponseEntity<List<ResponseUserDto>> findAll(){
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> findById(@PathVariable Long id) {
-        Optional<UserEntity> user = userService.findById(id);
-        if (user.isPresent()) {
-            return ResponseEntity.ok(user.get());
-        }
-        return ResponseEntity.badRequest().build();
+    public ResponseEntity<ResponseUserDto> findById(@PathVariable Long id) {
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<UserEntity> saveUser(@RequestBody UserEntity user){
+    public ResponseEntity<ResponseUserDto> saveUser(@RequestBody RequestUserDto user){
         return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
     }
 
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> destroy(@PathVariable Long id){
-        Optional<UserEntity> user = userService.findById(id);
-        if(user.isPresent()){
-            userService.destroy(id);
+        boolean user = userService.destroy(id);
+        if(user){
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

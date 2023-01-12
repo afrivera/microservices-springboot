@@ -1,20 +1,19 @@
 package org.afrivera.springcloud.msvc.users.service;
 
 
-import org.afrivera.springcloud.msvc.users.model.entity.UserEntity;
-import org.springframework.transaction.annotation.Transactional;
+import org.afrivera.springcloud.msvc.users.dto.RequestUserDto;
+import org.afrivera.springcloud.msvc.users.dto.ResponseUserDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService {
 
 
-    List<UserEntity> findAll();
+    List<ResponseUserDto> findAll();
 
-    Optional<UserEntity> findById(Long id);
+    ResponseUserDto findById(Long id);
 
-    UserEntity save(UserEntity user);
+    ResponseUserDto save(RequestUserDto user);
 
-    void destroy(Long id);
+    boolean destroy(Long id);
 }
