@@ -10,9 +10,11 @@ import java.util.Optional;
 public interface UserService {
 
 
-    @Transactional(readOnly = true)
     List<UserEntity> findAll();
 
-    @Transactional(readOnly = true)
     Optional<UserEntity> findById(Long id);
+
+    UserEntity save(UserEntity user);
+
+    void destroy(Long id);
 }
