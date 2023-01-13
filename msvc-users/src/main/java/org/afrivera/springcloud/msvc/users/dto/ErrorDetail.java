@@ -7,11 +7,19 @@ public class ErrorDetail {
     private Date date_time;
     private String message;
     private int status;
+    private Object data;
 
     public ErrorDetail(String message, int status) {
         this.date_time = new Date();
         this.message = message;
         this.status = status;
+    }
+
+    public ErrorDetail(String message, int status, Object data) {
+        this.date_time = new Date();
+        this.message = message;
+        this.status = status;
+        this.data = data;
     }
 
     public Date getDate_time() {
@@ -36,5 +44,13 @@ public class ErrorDetail {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 }
