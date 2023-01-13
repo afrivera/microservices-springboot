@@ -2,6 +2,7 @@ package org.afrivera.springcloud.msvc.users.service.impl;
 
 import org.afrivera.springcloud.msvc.users.dto.RequestUserDto;
 import org.afrivera.springcloud.msvc.users.dto.ResponseUserDto;
+import org.afrivera.springcloud.msvc.users.exception.ResourceNotFoundException;
 import org.afrivera.springcloud.msvc.users.mapper.UserMapper;
 import org.afrivera.springcloud.msvc.users.model.entity.UserEntity;
 import org.afrivera.springcloud.msvc.users.repository.UserRepository;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     private UserEntity findUserById(Long id){
         Optional<UserEntity> user = userRepository.findById(id);
         if(!user.isPresent()){
-            throw new RuntimeException("Not found") ;
+            throw new ResourceNotFoundException("User", "id", id);
         }
         return user.get();
     }
