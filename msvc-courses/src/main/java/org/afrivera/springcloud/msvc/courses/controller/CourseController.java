@@ -33,4 +33,13 @@ public class CourseController {
     public ResponseEntity<CourseResponseDto> save(@Valid @RequestBody CourseRequestDto courseRequestDto){
         return new ResponseEntity<>(courseService.save(courseRequestDto), HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> destroy(@PathVariable Long id){
+        if(courseService.destroy(id)){
+            return ResponseEntity.noContent().build();
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 }
