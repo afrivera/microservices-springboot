@@ -2,6 +2,7 @@ package org.afrivera.springcloud.msvc.courses.service.impl;
 
 import org.afrivera.springcloud.msvc.courses.dto.CourseRequestDto;
 import org.afrivera.springcloud.msvc.courses.dto.CourseResponseDto;
+import org.afrivera.springcloud.msvc.courses.exception.ResourceNotFoundException;
 import org.afrivera.springcloud.msvc.courses.mapper.CourseMapper;
 import org.afrivera.springcloud.msvc.courses.model.entity.CourseEntity;
 import org.afrivera.springcloud.msvc.courses.repository.CourseRepository;
@@ -58,7 +59,7 @@ public class CourseServiceImpl implements CourseService {
     private CourseEntity findCourseById(Long id){
         Optional<CourseEntity> courseEntity = courseRepository.findById(id);
         if(!courseEntity.isPresent()){
-            throw new RuntimeException("course not found");
+            throw new ResourceNotFoundException("course", "id", id);
         }
         return courseEntity.get();
     }
