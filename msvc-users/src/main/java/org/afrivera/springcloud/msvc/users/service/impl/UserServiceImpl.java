@@ -2,6 +2,7 @@ package org.afrivera.springcloud.msvc.users.service.impl;
 
 import org.afrivera.springcloud.msvc.users.dto.RequestUserDto;
 import org.afrivera.springcloud.msvc.users.dto.ResponseUserDto;
+import org.afrivera.springcloud.msvc.users.exception.EmailAlreadyExistException;
 import org.afrivera.springcloud.msvc.users.exception.ResourceNotFoundException;
 import org.afrivera.springcloud.msvc.users.mapper.UserMapper;
 import org.afrivera.springcloud.msvc.users.model.entity.UserEntity;
@@ -42,6 +43,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public ResponseUserDto save(RequestUserDto user){
+        if(userRepository.existsByEmail(user.getEmail())){
+            throw new EmailAlreadyExistException(user.getEmail());
+        }
         return userMapper.userEntityToResponseUserDto( userRepository.save(userMapper.requestUserDtoToUser(user)));
     }
 

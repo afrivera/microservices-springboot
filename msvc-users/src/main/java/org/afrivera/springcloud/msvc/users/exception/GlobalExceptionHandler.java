@@ -23,6 +23,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EmailAlreadyExistException.class)
+    public ResponseEntity<ErrorDetail> emailAlreadyExistException(EmailAlreadyExistException exception, WebRequest request){
+        ErrorDetail errorDetail = new ErrorDetail(exception.getMessage(), HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(errorDetail, HttpStatus.CONFLICT);
+    }
+
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request){
         Map<String, String> errors = new HashMap<>();
