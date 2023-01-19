@@ -27,4 +27,16 @@ public class CourseUserEntity {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj){
+            return true;
+        }
+        if(!(obj instanceof CourseUserEntity)){
+            return false;
+        }
+        CourseUserEntity cue = (CourseUserEntity) obj;
+        return this.userId != null && this.userId.equals(cue.userId);
+    }
 }
